@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputSystem : MonoBehaviour
+public class InputSystem : SingletonBase<InputSystem>
 {
     public Vector2 moveInput;
     public Vector2 look;

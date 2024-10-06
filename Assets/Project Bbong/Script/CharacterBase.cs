@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace Bbong123
 {
     public class CharacterStats
@@ -13,11 +14,14 @@ namespace Bbong123
     public class CharacterBase : MonoBehaviour
     {
         public CharacterStats characterStats;
+        public System.Action<float, float> OnChangedHP;
+        public System.Action<float, float> OnChangedSP;
+
         public bool IsAiming { get; set; }
         public float CurrentSP => characterStats.currentSP;
         public float CurrentHP => characterStats.currentHP;
         public float MaxSP => characterStats.maxSP;
-        public float maxHP => characterStats.maxHP;
+        public float MaxHP => characterStats.maxHP;
         public bool IsGrounded => IsGrounded;
         public bool IsAlive => characterStats.currentHP > 0f;
         public float maxJumpCount = 2;
@@ -42,7 +46,7 @@ namespace Bbong123
                 }
             }
         }
-        public bool IsStracfe
+        public bool IsStrafe
         {
             get => isStrafe;
             set => isStrafe = value;
@@ -97,7 +101,7 @@ namespace Bbong123
             characterStats.currentSP = characterStats.maxSP;
 
             characterAnimator = GetComponent<Animator>();
-            unityCharacterController = GetComponent<CharacterController>();
+            unityCharacterController = GetComponent<UnityEngine.CharacterController>();
         }
 
         protected virtual void start()
