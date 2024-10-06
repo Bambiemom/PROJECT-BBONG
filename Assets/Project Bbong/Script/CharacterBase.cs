@@ -21,7 +21,9 @@ namespace Bbong123
         public bool IsGrounded => IsGrounded;
         public bool IsAlive => characterStats.currentHP > 0f;
         public float maxJumpCount = 2;
-
+        public float attackRange = 1.5f;
+        public int AttackDamage = 10;
+        public LayerMask enemyLayer;
         public bool IsPossibleMovement
         {
             get => isPossibleMovement;
@@ -126,7 +128,12 @@ namespace Bbong123
         }
         public virtual void Attack()
         {
+            characterAnimator.SetTrigger("Attack");
 
+            // 공격 범위 내 적 감지
+            Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
+
+            
         }
         public virtual void Fire(bool isFire)
         {
@@ -220,6 +227,11 @@ namespace Bbong123
                 currentJumpCount = 0;
             }
             characterAnimator.SetBool("IsGrounded", isGrounded);
+        }
+        void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, attackRange);
         }
         public void FreeFall()
         {
